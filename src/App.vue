@@ -1,32 +1,63 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+
+    <div class="main-container" v-if="this.$store.getters.isAuthenticated">
+
+      <div class="section-container">
+
+        <!-- Header -->
+        <Header />
+
+        <!-- Navbar-->
+        <nav class="navbar" role="navigation" aria-label="main navigation">
+          <div class="container">
+            <div class="navbar-menu">
+              <router-link class="navbar-item" to="/articles">ArticleList</router-link>
+              <router-link class="navbar-item" to="/user">User</router-link>
+              <router-link class="navbar-item" to="/admin">Admin</router-link>
+              <!--<router-link class="navbar-item" to="/register">Register</router-link>-->
+            </div>
+          </div>
+        </nav>
+
+        <div class="container">
+          <router-view />
+        </div>
+
+      </div>
+
+      <Footer />
+
     </div>
-    <router-view/>
+
+    <SignIn v-else />
+
   </div>
 </template>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+<script>
+import SignIn from '@/components/SignIn'
+import Footer from '@/components/Footer'
+import Header from '@/components/Header'
+
+export default {
+  name: 'app',
+  components: { Header, Footer, SignIn }
+}
+</script>
+
+<style scoped>
+.main-container {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
 }
 
-#nav {
-  padding: 30px;
+.section-container {
+  flex: 1;
 }
 
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
+.brdr-red {
+  border: 1px solid red;
 }
 </style>
